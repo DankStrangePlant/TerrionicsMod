@@ -15,4 +15,10 @@ io.on('connection', function (socket) {
   });
 });
 
+io.on('connection', function (socket) {
+  socket.on('chat message', function (data) {
+    console.log(data);
+  });
+});
+
 console.log(`\nServer is listening on port ${port}.\nGoto http://localhost:${port} to open the interface.`);
