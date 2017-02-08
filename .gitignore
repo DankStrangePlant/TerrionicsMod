@@ -1,6 +1,7 @@
 /.vs/*
 
 Server/node_modules/*
+server/node_modules/*
 
 SocketTest.csproj.user
 
