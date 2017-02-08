@@ -1,0 +1,7 @@
+/.vs/*
+
+Server/node_modules/*
+
+SocketTest.csproj.user
+
+SocketTest.sln

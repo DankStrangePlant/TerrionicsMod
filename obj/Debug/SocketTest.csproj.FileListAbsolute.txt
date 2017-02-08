@@ -1,0 +1,10 @@
+C:\Users\madz\Documents\My Games\Terraria\ModLoader\Mod Sources\SocketTest\bin\Debug\SocketTest.dll
+C:\Users\madz\Documents\My Games\Terraria\ModLoader\Mod Sources\SocketTest\bin\Debug\SocketTest.pdb
+C:\Users\madz\Documents\My Games\Terraria\ModLoader\Mod Sources\SocketTest\bin\Debug\Microsoft.Xna.Framework.dll
+C:\Users\madz\Documents\My Games\Terraria\ModLoader\Mod Sources\SocketTest\bin\Debug\Microsoft.Xna.Framework.Game.dll
+C:\Users\madz\Documents\My Games\Terraria\ModLoader\Mod Sources\SocketTest\bin\Debug\Microsoft.Xna.Framework.Graphics.dll
+C:\Users\madz\Documents\My Games\Terraria\ModLoader\Mod Sources\SocketTest\bin\Debug\Microsoft.Xna.Framework.Xact.dll
+C:\Users\madz\Documents\My Games\Terraria\ModLoader\Mod Sources\SocketTest\bin\Debug\tModLoader.exe
+C:\Users\madz\Documents\My Games\Terraria\ModLoader\Mod Sources\SocketTest\obj\Debug\SocketTest.csprojResolveAssemblyReference.cache
+C:\Users\madz\Documents\My Games\Terraria\ModLoader\Mod Sources\SocketTest\obj\Debug\SocketTest.dll
+C:\Users\madz\Documents\My Games\Terraria\ModLoader\Mod Sources\SocketTest\obj\Debug\SocketTest.pdb

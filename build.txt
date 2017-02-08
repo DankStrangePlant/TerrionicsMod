@@ -1,0 +1,9 @@
+author = iamthemadz
+version = 0.1
+displayName = SocketTest
+hideCode = false
+hideResources = false
+includeSource = true
+buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*
+includePDB = true
+dllReferences = WebSocket4Net, SocketIoClientDotNet, Newtonsoft.Json, EngineIoClientDotNet
