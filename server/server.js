@@ -1,7 +1,7 @@
 ﻿var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-var port = 3000;
+var port = 3005;
 
 server.listen(port);
 
