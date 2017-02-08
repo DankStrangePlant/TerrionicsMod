@@ -10,11 +10,12 @@ app.get('/', function (req, res) {
 });
 
 io.on('connection', function (socket) {
+  console.log("connected");
   socket.on('SocketTest', function (data) {
     console.log(data);
   });
   socket.on('socket-connected', function (data) {
-    socket.emit('news', data);
+    io.sockets.emit('news', data);
   });
 });
 
