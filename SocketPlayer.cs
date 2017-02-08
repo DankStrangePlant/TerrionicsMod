@@ -15,12 +15,6 @@ namespace SocketTest
 {
     public class SocketPlayer : ModPlayer
     {
-        public override void OnEnterWorld()
-        {
-            Main.NewText("SOMETHING");
-			Debug.WriteLine("SOMETHING2");
-			ErrorLogger.Log("In OnEnterWorld method");
-        }
 
     }
 }

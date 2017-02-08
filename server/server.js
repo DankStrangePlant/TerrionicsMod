@@ -13,12 +13,8 @@ io.on('connection', function (socket) {
   socket.on('SocketTest', function (data) {
     console.log(data);
   });
-});
-
-io.on('connection', function (socket) {
-  socket.on('chat message', function (data) {
+  socket.on('socket-connected', function (data) {
     console.log(data);
-	socket.emit('chat message', data);
   });
 });
 
