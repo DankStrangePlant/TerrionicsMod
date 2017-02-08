@@ -14,7 +14,7 @@ io.on('connection', function (socket) {
     console.log(data);
   });
   socket.on('socket-connected', function (data) {
-    console.log(data);
+    socket.emit('news', data);
   });
 });
 
