@@ -1,4 +1,4 @@
-<!doctype html> 
+<!doctype html>
 <html>
   <head>
     <title>Socket.IO chat</title>
@@ -21,10 +21,11 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
-      console.log("Worked");
+      console.log("Change Test4");
       var socket = io();
       $('form').submit(function(){
         socket.emit('chat message', $('#m').val());
+		console.log($('#m').val())
         $('#m').val('');
         return false;
       });

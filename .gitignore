@@ -1,7 +1,9 @@
-/.vs/*
+.vs/
+server/node_modules/
+bin/
+obj/
 
-Server/node_modules/*
-server/node_modules/*
+server/.ftpconfig
 
 SocketTest.csproj.user
 
