@@ -1,9 +1,0 @@
-C:\Users\madz\Documents\My Games\Terraria\ModLoader\Mod Sources\SocketTest\bin\x86\Debug\SocketTest.dll
-C:\Users\madz\Documents\My Games\Terraria\ModLoader\Mod Sources\SocketTest\bin\x86\Debug\SocketTest.pdb
-C:\Users\madz\Documents\My Games\Terraria\ModLoader\Mod Sources\SocketTest\bin\x86\Debug\Microsoft.Xna.Framework.dll
-C:\Users\madz\Documents\My Games\Terraria\ModLoader\Mod Sources\SocketTest\bin\x86\Debug\Microsoft.Xna.Framework.Game.dll
-C:\Users\madz\Documents\My Games\Terraria\ModLoader\Mod Sources\SocketTest\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.dll
-C:\Users\madz\Documents\My Games\Terraria\ModLoader\Mod Sources\SocketTest\bin\x86\Debug\Microsoft.Xna.Framework.Xact.dll
-C:\Users\madz\Documents\My Games\Terraria\ModLoader\Mod Sources\SocketTest\bin\x86\Debug\tModLoader.exe
-C:\Users\madz\Documents\My Games\Terraria\ModLoader\Mod Sources\SocketTest\obj\x86\Debug\SocketTest.dll
-C:\Users\madz\Documents\My Games\Terraria\ModLoader\Mod Sources\SocketTest\obj\x86\Debug\SocketTest.pdb
