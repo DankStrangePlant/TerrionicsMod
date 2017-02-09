@@ -10,11 +10,32 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.GameInput;
+using Quobject.SocketIoClientDotNet.Client;
 
 namespace SocketTest
 {
     public class SocketPlayer : ModPlayer
     {
+		public override void Load(TagCompound tag)
+        {
+			SocketTest mod = (SocketTest)ModLoader.GetMod("SocketTest");
+			Socket socket = mod.socket;
+			
+			socket.On("spawn item", (data) =>
+			{
+				int itemID = Convert.ToInt32(data);
+				player.QuickSpawnItem(itemID, 1);
+			});
+			
+			socket.On("chat message", (data) =>
+			{
+				Main.NewText("Message from server received");
+			});
 
+ //               socket.On("spawn-npc", () =>
+ //               {
+ //                   socket.Emit("socket-connected", "aloha");
+ //               });
+        }
     }
 }

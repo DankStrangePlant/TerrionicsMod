@@ -1,3 +1,4 @@
+using System;
 using Terraria;
 using Terraria.ModLoader;
 using System.Collections.Generic;
@@ -27,14 +28,15 @@ namespace SocketTest
         {
             if (!Main.dedServ)
             {
-                socket = IO.Socket("http://nerdtaco.com:3005");
-
+                //socket = IO.Socket("http://nerdtaco.com:3005");
+				socket = IO.Socket("http://127.0.0.1:5000");
+				
                 socket.On(Socket.EVENT_CONNECT, () =>
                 {
-                    socket.Emit("socket-connected", "aloha");
+                    socket.Emit("socket-connected", Environment.MachineName + " has reloaded the mod");
                 });
 
- ///               socket.On("spawn-npc", () =>
+ //               socket.On("spawn-npc", () =>
  //               {
  //                   socket.Emit("socket-connected", "aloha");
  //               });

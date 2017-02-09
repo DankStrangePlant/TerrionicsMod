@@ -1,7 +1,7 @@
 ﻿var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-var port = 3005;
+var port = 5000;
 
 server.listen(port);
 
@@ -10,11 +10,18 @@ app.get('/', function (req, res) {
 });
 
 io.on('connection', function (socket) {
+  console.log("connected");
   socket.on('SocketTest', function (data) {
     console.log(data);
   });
   socket.on('socket-connected', function (data) {
-    socket.emit('news', data);
+    io.sockets.emit('news', data);
+  });
+  socket.on('chat message', function (data) {
+	if(data.substring(0, "Spawn ".length) == "Spawn ")
+		io.sockets.emit('spawn item', data.substring("Spawn ".length, data.length));
+	else
+		io.sockets.emit('chat message', data);
   });
 });
 
