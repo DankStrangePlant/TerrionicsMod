@@ -11,6 +11,7 @@ namespace SocketTest
 	{
         
         public Socket socket;
+		public bool playerInitialized = false;
 
         public SocketTest()
 		{
@@ -42,5 +43,13 @@ namespace SocketTest
  //               });
             }
         }
+		
+		public override void Unload()
+		{
+			if (!Main.dedServ)
+			{
+				socket.Disconnect();
+			}
+		}
     }
 }
