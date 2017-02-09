@@ -3,6 +3,8 @@ server/node_modules/
 bin/
 obj/
 
+server/.ftpconfig
+
 SocketTest.csproj.user
 
 SocketTest.sln
