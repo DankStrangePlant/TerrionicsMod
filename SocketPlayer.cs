@@ -11,15 +11,20 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.GameInput;
 using Quobject.SocketIoClientDotNet.Client;
+using Newtonsoft.Json;
+//using Terraria.ModLoader.Newtonsoft.Json;
 
 namespace SocketTest
 {
     public class SocketPlayer : ModPlayer
-    {		
+    {
+		SocketTest mod;
+		Socket socket;
+		
 		public override void Initialize()
         {
-			SocketTest mod = (SocketTest)ModLoader.GetMod("SocketTest");
-			Socket socket = mod.socket;
+			mod = (SocketTest)ModLoader.GetMod("SocketTest");
+			socket = mod.socket;
 				
 			socket.On("spawn item", (data) =>
 			{
@@ -32,7 +37,7 @@ namespace SocketTest
 				socket.On("chat message", (data) =>
 				{
 					socket.Emit("socket-connected", "Terraria received message");
-					Main.NewText("Server: " + (String)data);
+					Main.NewText("Server: " + (String)data, 0, 0, 255, false);
 				});
 				
 				mod.playerInitialized = true;
@@ -43,5 +48,11 @@ namespace SocketTest
  //                   socket.Emit("socket-connected", "aloha");
  //               });
         }
+		
+		public override void ProcessTriggers(TriggersSet triggersSet)
+		{
+			String output = JsonConvert.SerializeObject(player.position);
+			socket.Emit("player-position", output);
+		}
     }
 }

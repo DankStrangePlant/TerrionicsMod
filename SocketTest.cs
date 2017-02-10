@@ -29,8 +29,8 @@ namespace SocketTest
         {
             if (!Main.dedServ)
             {
-                //socket = IO.Socket("http://nerdtaco.com:3005");
-				socket = IO.Socket("http://127.0.0.1:5000");
+                socket = IO.Socket("http://nerdtaco.com:3005");
+				//socket = IO.Socket("http://127.0.0.1:5000");
 				
                 socket.On(Socket.EVENT_CONNECT, () =>
                 {

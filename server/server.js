@@ -27,6 +27,10 @@ io.on('connection', function (socket) {
 	else
 		io.sockets.emit('chat message', data);
   });
+  socket.on('player-position', function (data) {
+	  io.sockets.emit('display-player-position', data);
+	  
+  });
 });
 
 console.log(`\nServer is listening on port ${port}.\nGoto http://localhost:${port} to open the interface.`);
