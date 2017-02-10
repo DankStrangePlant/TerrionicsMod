@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using Quobject.SocketIoClientDotNet.Client;
+using Newtonsoft.Json;
 
 namespace SocketTest
 {
