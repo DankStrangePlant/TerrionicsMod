@@ -15,22 +15,28 @@ using Quobject.SocketIoClientDotNet.Client;
 namespace SocketTest
 {
     public class SocketPlayer : ModPlayer
-    {
-		public override void Load(TagCompound tag)
+    {		
+		public override void Initialize()
         {
 			SocketTest mod = (SocketTest)ModLoader.GetMod("SocketTest");
 			Socket socket = mod.socket;
-			
+				
 			socket.On("spawn item", (data) =>
 			{
 				int itemID = Convert.ToInt32(data);
 				player.QuickSpawnItem(itemID, 1);
 			});
-			
-			socket.On("chat message", (data) =>
-			{
-				Main.NewText("Message from server received");
-			});
+				
+			if(!mod.playerInitialized)
+			{				
+				socket.On("chat message", (data) =>
+				{
+					socket.Emit("socket-connected", "Terraria received message");
+					Main.NewText("Server: " + (String)data);
+				});
+				
+				mod.playerInitialized = true;
+			}
 
  //               socket.On("spawn-npc", () =>
  //               {
