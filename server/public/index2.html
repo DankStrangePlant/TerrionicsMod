@@ -12,6 +12,8 @@
     <link rel="stylesheet" type="text/css" href="/css/semantic.min.css">
 
     <body>
+		<div id="x-disp">x: 0.0</div>
+		<div id="y-disp">y: 0.0</div></br>
         <script src="/socket.io/socket.io.js"></script>
         <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
         <script src="/js/semantic.min.js"></script>
@@ -33,6 +35,11 @@
             socket.on('news', function(data) {
                 $('#messages').append('<li>' + data + '</li>')
             });
+			socket.on('display-player-position', function(vector) {
+				var v = JSON.parse(vector);
+				$('#x-disp').html("X: " + v[0]);
+				$('#y-disp').html("Y: " + v[1]);
+			});
         </script>
     </body>
 </html>

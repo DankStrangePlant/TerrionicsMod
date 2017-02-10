@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.IO;
 using System.Diagnostics;
@@ -20,6 +21,9 @@ namespace SocketTest
     {
 		SocketTest mod;
 		Socket socket;
+		int count = 0;
+		float[] positionArray = {0, 0};
+		String output;
 		
 		public override void Initialize()
         {
@@ -51,8 +55,20 @@ namespace SocketTest
 		
 		public override void ProcessTriggers(TriggersSet triggersSet)
 		{
-			String output = JsonConvert.SerializeObject(player.position);
-			socket.Emit("player-position", output);
+			new Task(EmitPositionAsync).Start();
+		}
+		
+		private async void EmitPositionAsync()
+		{
+			count = (count+1)%5;
+			if(count == 0)
+			{
+				positionArray[0] = player.position.X;
+				positionArray[1] = player.position.Y;
+				String output = JsonConvert.SerializeObject(positionArray);
+				socket.Emit("player-position", output);
+				//Main.NewText(output);
+			}
 		}
     }
 }
