@@ -16,6 +16,10 @@ io.on('connection', function(socket) {
     socket.on('disconnect', function() {
         console.log('disconnected');
     });
+	socket.on('player-position', function (data) {
+		io.sockets.emit('display-player-position', data);
+		
+	});
     socket.on('socket-connected', function(data) {
         io.sockets.emit('news', data);
     });
