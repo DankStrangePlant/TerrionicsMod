@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title>Interactive Debugger Thing</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/semantic.min.css">
+
+    <body>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+        <script src="/js/semantic.min.js"></script>
+        <script>
+            console.log("Change Test4");
+            var socket = io();
+            $('form').submit(function() {
+                socket.emit('chat message', $('#m').val());
+                console.log($('#m').val())
+                $('#m').val('');
+                return false;
+            });
+            socket.on('chat message', function(msg) {
+                $('#messages').append($('<li>').text(msg));
+            });
+            socket.on('spawn item', function(msg) {
+                $('#messages').append($('<li>').text("Spawned item: " + msg));
+            });
+            socket.on('news', function(data) {
+                $('#messages').append('<li>' + data + '</li>')
+            });
+        </script>
+    </body>
+</html>

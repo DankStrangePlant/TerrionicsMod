@@ -1,6 +1,5 @@
 <!doctype html>
 <html>
-
 <head>
 
     <meta charset="utf-8">
@@ -10,29 +9,55 @@
     <title>Interactive Debugger Thing</title>
 
     <link rel="stylesheet" type="text/css" href="/css/semantic.min.css">
+    <style>
+    body, body > .grid {
+      height: 100%;
+    }
+    </style>
+</head>
 
-    <body>
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-        <script src="/js/semantic.min.js"></script>
-        <script>
-            console.log("Change Test4");
-            var socket = io();
-            $('form').submit(function() {
-                socket.emit('chat message', $('#m').val());
-                console.log($('#m').val())
-                $('#m').val('');
-                return false;
-            });
-            socket.on('chat message', function(msg) {
-                $('#messages').append($('<li>').text(msg));
-            });
-            socket.on('spawn item', function(msg) {
-                $('#messages').append($('<li>').text("Spawned item: " + msg));
-            });
-            socket.on('news', function(data) {
-                $('#messages').append('<li>' + data + '</li>')
-            });
-        </script>
-    </body>
+<body>
+    <div class="ui grid container">
+        <div class="column">
+          <div class="ui segment">
+              <div class="ui form">
+                  <div class="field">
+                      <textarea></textarea>
+                  </div>
+                  <div class="inline fields">
+                      <div class="field thirteen wide">
+                          <input type="text" name="cmd-box" placeholder="Enter command....">
+                      </div>
+                      <div class="field three wide">
+                          <div class="ui fluid large teal submit button">Send</div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="/js/semantic.min.js"></script>
+    <script>
+        console.log("Change Test4");
+        var socket = io();
+        $('form').submit(function() {
+            socket.emit('chat message', $('#m').val());
+            console.log($('#m').val())
+            $('#m').val('');
+            return false;
+        });
+        socket.on('chat message', function(msg) {
+            $('#messages').append($('<li>').text(msg));
+        });
+        socket.on('spawn item', function(msg) {
+            $('#messages').append($('<li>').text("Spawned item: " + msg));
+        });
+        socket.on('news', function(data) {
+            $('#messages').append('<li>' + data + '</li>')
+        });
+    </script>
+</body>
+
 </html>
