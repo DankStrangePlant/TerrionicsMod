@@ -53,20 +53,27 @@ namespace SocketTest
  //               });
         }
 		
-		public override void ProcessTriggers(TriggersSet triggersSet)
+		public override void PostUpdateMiscEffects()
 		{
-			new Task(EmitPositionAsync).Start();
+			if(mod.connected)
+			{
+				EmitPosition();
+			}
+			//new Task(EmitPositionAsync).Start();
 		}
 		
-		private async void EmitPositionAsync()
+		private void EmitPosition()
 		{
-			count = (count+1)%5;
+			count = (count+1)%10;
 			if(count == 0)
 			{
-				positionArray[0] = player.position.X;
-				positionArray[1] = player.position.Y;
-				String output = JsonConvert.SerializeObject(positionArray);
-				socket.Emit("player-position", output);
+				//positionArray[0] = player.position.X;
+				//positionArray[1] = player.position.Y;
+				//String output = JsonConvert.SerializeObject(positionArray);
+				/*new Task(() => {*/socket.Emit("player-position", "[1, 1]");
+								/*Main.NewText("emitted");}).Start();*/
+				
+				//socket.Emit("player-position", output);
 				//Main.NewText(output);
 			}
 		}

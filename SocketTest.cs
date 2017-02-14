@@ -13,6 +13,7 @@ namespace SocketTest
         
         public Socket socket;
 		public bool playerInitialized = false;
+		public bool connected = false;
 
         public SocketTest()
 		{
@@ -35,8 +36,15 @@ namespace SocketTest
 				
                 socket.On(Socket.EVENT_CONNECT, () =>
                 {
+					connected = true;
                     socket.Emit("socket-connected", Environment.MachineName + " has reloaded the mod");
                 });
+				
+				socket.On("disconnect", () =>
+				{
+					connected = false;
+					Main.NewText("Lost connection");
+				});
 
  //               socket.On("spawn-npc", () =>
  //               {
