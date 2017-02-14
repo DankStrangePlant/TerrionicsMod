@@ -41,6 +41,14 @@ namespace SocketTest
 		
 		public override void PostUpdateMiscEffects()
 		{
+			if(SocketAsync.response != String.Empty)
+			{
+				Main.NewText("String received: \"" + SocketAsync.response + "\""); 
+				
+				//reset response string
+				SocketAsync.response = String.Empty;
+			}
+			
 			if(mod.connected)
 			{
 				EmitPosition();

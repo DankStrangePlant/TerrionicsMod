@@ -13,8 +13,8 @@ namespace SocketTest
 {
     class SocketTest : Mod
 	{
-		public String hostAddress = "127.0.0.1";
-		//public String hostAddress = "nerdtaco.com";
+		//public String hostAddress = "127.0.0.1";
+		public String hostAddress = "nerdtaco.com";
 		public int port = 3005;
         public Socket socket;
 		public bool playerInitialized = false;
@@ -39,6 +39,8 @@ namespace SocketTest
 				socket = SocketAsync.SocketInit(hostAddress, port);
 				socket.Blocking = false;
 				connected = true;
+				
+				SocketAsync.Receive(socket);
             }
         }
 		
@@ -47,7 +49,16 @@ namespace SocketTest
 			if (!Main.dedServ)
 			{
 				if(socket.Connected);
-					//SocketAsync.SocketClose(socket);
+					SocketAsync.SocketClose(socket);
+			}
+		}
+		
+		public override void ChatInput(String text, ref bool display)
+		{
+			if(text.Equals("/ping"))
+			{
+				SocketAsync.Send(socket, "ping");
+				display = false;
 			}
 		}
     }

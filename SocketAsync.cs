@@ -29,7 +29,7 @@ public class SocketAsync {
         new ManualResetEvent(false);
 
     // The response from the remote device.
-    private static String response = String.Empty;
+    public static String response = String.Empty;
 
     public static Socket SocketInit(String hostAddress, int port) {
         // Connect to a remote device.
