@@ -11,9 +11,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.GameInput;
-using Quobject.SocketIoClientDotNet.Client;
 using Newtonsoft.Json;
-//using Terraria.ModLoader.Newtonsoft.Json;
+
+using System.Net;  
+using System.Net.Sockets;  
+using System.Threading; 
 
 namespace SocketTest
 {
@@ -30,27 +32,11 @@ namespace SocketTest
 			mod = (SocketTest)ModLoader.GetMod("SocketTest");
 			socket = mod.socket;
 				
-			socket.On("spawn item", (data) =>
-			{
-				int itemID = Convert.ToInt32(data);
-				player.QuickSpawnItem(itemID, 1);
-			});
-				
 			if(!mod.playerInitialized)
-			{				
-				socket.On("chat message", (data) =>
-				{
-					socket.Emit("socket-connected", "Terraria received message");
-					Main.NewText("Server: " + (String)data, 0, 0, 255, false);
-				});
-				
+			{								
 				mod.playerInitialized = true;
 			}
 
- //               socket.On("spawn-npc", () =>
- //               {
- //                   socket.Emit("socket-connected", "aloha");
- //               });
         }
 		
 		public override void PostUpdateMiscEffects()
@@ -59,22 +45,20 @@ namespace SocketTest
 			{
 				EmitPosition();
 			}
-			//new Task(EmitPositionAsync).Start();
 		}
 		
 		private void EmitPosition()
 		{
-			count = (count+1)%10;
-			if(count == 0)
+			try
 			{
-				//positionArray[0] = player.position.X;
-				//positionArray[1] = player.position.Y;
-				//String output = JsonConvert.SerializeObject(positionArray);
-				/*new Task(() => {*/socket.Emit("player-position", "[1, 1]");
-								/*Main.NewText("emitted");}).Start();*/
-				
-				//socket.Emit("player-position", output);
-				//Main.NewText(output);
+				positionArray[0] = player.position.X;
+				positionArray[1] = player.position.Y;
+				String output = JsonConvert.SerializeObject(positionArray);
+				SocketAsync.Send(socket, output);
+			} catch (Exception e) {
+				count = (count+1)%1000;
+				if(count == 0)
+					Main.NewText("Cannot connect to server");  
 			}
 		}
     }
