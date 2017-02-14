@@ -4,6 +4,7 @@ bin/
 obj/
 
 server/.ftpconfig
+server/lib/Newtonsoft.Json.dll
 
 SocketTest.csproj.user
 
