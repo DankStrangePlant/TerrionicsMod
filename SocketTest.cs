@@ -5,20 +5,22 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 
-using System.Net;  
-using System.Net.Sockets;  
+using System.Net;
+using System.Net.Sockets;
 using System.Threading;
+using System.Diagnostics;
 
 namespace SocketTest
 {
     class SocketTest : Mod
 	{
-		//public String hostAddress = "127.0.0.1";
-		public String hostAddress = "nerdtaco.com";
+		public String hostAddress = "127.0.0.1";
+		//public String hostAddress = "nerdtaco.com";
 		public int port = 3005;
-        public Socket socket;
+        public SocketClient client;
 		public bool playerInitialized = false;
-		public bool connected = false;
+
+        private Stopwatch pingStopWatch = new Stopwatch();
 
         public SocketTest()
 		{
@@ -36,11 +38,8 @@ namespace SocketTest
         {
             if (!Main.dedServ)
             {
-				socket = SocketAsync.SocketInit(hostAddress, port);
-				socket.Blocking = false;
-				connected = true;
-				
-				SocketAsync.Receive(socket);
+                client = new SocketClient(this);
+                client.OpenConnection(hostAddress, port);
             }
         }
 		
@@ -48,8 +47,12 @@ namespace SocketTest
 		{
 			if (!Main.dedServ)
 			{
-				if(socket.Connected);
-					SocketAsync.SocketClose(socket);
+				try{
+                    if(client != null)
+                        client.CloseConnection();
+				} catch (Exception e) {
+					Console.WriteLine(e.Message);
+				}
 			}
 		}
 		
@@ -57,9 +60,48 @@ namespace SocketTest
 		{
 			if(text.Equals("/ping"))
 			{
-				SocketAsync.Send(socket, "ping");
-				display = false;
+				try{
+                    pingStopWatch.Restart();
+                    client.SendMessage("ping");
+                    display = false;
+                } catch (Exception e) {
+					Console.WriteLine(e.Message);
+				}
 			}
 		}
+
+        public void GetMessage(String message)
+        {
+            //Parse read message here!
+            if (message != null)
+            {
+                if (message != "\0")
+                {
+                    message = message.Trim('\0');
+
+                    for(int i= 0; i < message.Length; i++)
+                    {
+                        System.Diagnostics.Debugger.Log(0, "1", message[i] + "\n");
+                    }
+
+                    if(message == "ping")
+                    {
+                        pingStopWatch.Stop();
+                        Main.NewText(pingStopWatch.ElapsedMilliseconds.ToString() + " ms");
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debugger.Log(0, "1", "RECEIVED DATA FROM SERVER: ");
+
+                        Main.NewText("SERVER SAYS: " + message);
+                    }
+                }
+                else
+                {
+                    System.Diagnostics.Debugger.Log(0, "1", "\nSERVER SAYS NULL TERMINATOR\n\n");
+                    Main.NewText("SERVER SAYS NULL TERMINATOR");
+                }
+            }
+        }
     }
 }

@@ -21,39 +21,31 @@ namespace SocketTest
 {
     public class SocketPlayer : ModPlayer
     {
-		SocketTest mod;
-		Socket socket;
+		SocketTest socketMod;
 		int count = 0;
 		float[] positionArray = {0, 0};
-		String output;
 		
 		public override void Initialize()
         {
-			mod = (SocketTest)ModLoader.GetMod("SocketTest");
-			socket = mod.socket;
+			socketMod = (SocketTest)ModLoader.GetMod("SocketTest");
 				
-			if(!mod.playerInitialized)
+			if(!socketMod.playerInitialized)
 			{								
-				mod.playerInitialized = true;
+				socketMod.playerInitialized = true;
 			}
 
         }
 		
 		public override void PostUpdateMiscEffects()
 		{
-			if(SocketAsync.response != String.Empty)
-			{
-				Main.NewText("String received: \"" + SocketAsync.response + "\""); 
-				
-				//reset response string
-				SocketAsync.response = String.Empty;
-			}
-			
-			if(mod.connected)
-			{
-				EmitPosition();
-			}
-		}
+
+            if (socketMod.client.Connected())
+            {
+                EmitPosition();
+                //Wait for data asynchronously 
+                socketMod.client.WaitForData();
+            }
+        }
 		
 		private void EmitPosition()
 		{
@@ -62,11 +54,11 @@ namespace SocketTest
 				positionArray[0] = player.position.X;
 				positionArray[1] = player.position.Y;
 				String output = JsonConvert.SerializeObject(positionArray);
-				SocketAsync.Send(socket, output);
+                socketMod.client.SendMessage(output);
 			} catch (Exception e) {
 				count = (count+1)%1000;
 				if(count == 0)
-					Main.NewText("Cannot connect to server");  
+					Main.NewText("Cannot send message to server");  
 			}
 		}
     }
