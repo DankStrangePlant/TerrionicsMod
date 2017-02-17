@@ -38,12 +38,11 @@ namespace SocketTest
 		
 		public override void PostUpdateMiscEffects()
 		{
-
-            if (socketMod.client.Connected())
+            EmitPosition();
+            if (socketMod.clientTCP.Connected())
             {
-                EmitPosition();
                 //Wait for data asynchronously 
-                socketMod.client.WaitForData();
+                socketMod.clientTCP.WaitForData();
             }
         }
 		
@@ -54,11 +53,11 @@ namespace SocketTest
 				positionArray[0] = player.position.X;
 				positionArray[1] = player.position.Y;
 				String output = JsonConvert.SerializeObject(positionArray);
-                socketMod.client.SendMessage(output);
+                socketMod.clientUDP.SendMessage(output);
 			} catch (Exception e) {
 				count = (count+1)%1000;
 				if(count == 0)
-					Main.NewText("Cannot send message to server");  
+					Main.NewText("Cannot send message");  
 			}
 		}
     }

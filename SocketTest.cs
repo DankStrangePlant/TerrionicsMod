@@ -17,7 +17,9 @@ namespace SocketTest
 		public String hostAddress = "127.0.0.1";
 		//public String hostAddress = "nerdtaco.com";
 		public int port = 3005;
-        public SocketClient client;
+        public ClientTCP clientTCP;
+        public ClientUDP clientUDP;
+
 		public bool playerInitialized = false;
 
         private Stopwatch pingStopWatch = new Stopwatch();
@@ -38,8 +40,11 @@ namespace SocketTest
         {
             if (!Main.dedServ)
             {
-                client = new SocketClient(this);
-                client.OpenConnection(hostAddress, port);
+                clientTCP = new ClientTCP(this);
+                clientTCP.OpenConnection(hostAddress, port);
+
+                clientUDP = new ClientUDP(this);
+                clientUDP.OpenSocket(hostAddress, port);
             }
         }
 		
@@ -48,8 +53,8 @@ namespace SocketTest
 			if (!Main.dedServ)
 			{
 				try{
-                    if(client != null)
-                        client.CloseConnection();
+                    if(clientTCP != null)
+                        clientTCP.CloseConnection();
 				} catch (Exception e) {
 					Console.WriteLine(e.Message);
 				}
@@ -62,7 +67,7 @@ namespace SocketTest
 			{
 				try{
                     pingStopWatch.Restart();
-                    client.SendMessage("ping");
+                    clientTCP.SendMessage("ping");
                     display = false;
                 } catch (Exception e) {
 					Console.WriteLine(e.Message);

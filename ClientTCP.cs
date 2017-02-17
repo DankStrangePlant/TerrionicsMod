@@ -5,26 +5,26 @@ using Terraria.ModLoader;
 
 namespace SocketTest
 {
-    class SocketClient
+    class ClientTCP
     {
         byte[] m_dataBuffer = new byte[10];
         IAsyncResult m_result;
         public AsyncCallback m_pfnCallBack;
-        public Socket m_clientSocket;
+        public Socket socketTCP;
         
         private SocketTest socketMod;
 
-        public SocketClient(SocketTest mod)
+        public ClientTCP(SocketTest mod)
         {
             socketMod = mod;
         }
 
         public void CloseConnection()
         {
-            if (m_clientSocket != null)
+            if (socketTCP != null)
             {
-                m_clientSocket.Shutdown(SocketShutdown.Both);
-                m_clientSocket = null;
+                socketTCP.Shutdown(SocketShutdown.Both);
+                socketTCP = null;
             }
         }
 
@@ -33,15 +33,15 @@ namespace SocketTest
             try
             {
                 // Create the socket instance
-                m_clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                socketTCP = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
                 // Cet the remote IP address
                 IPAddress ip = IPAddress.Parse(hostName);
                 // Create the end point 
                 IPEndPoint ipEnd = new IPEndPoint(ip, port);
                 // Connect to the remote host
-                m_clientSocket.Connect(ipEnd);
-                if (m_clientSocket.Connected)
+                socketTCP.Connect(ipEnd);
+                if (socketTCP.Connected)
                 {
                     //Wait for data asynchronously 
                     WaitForData();
@@ -61,9 +61,9 @@ namespace SocketTest
             {
                 Object objData = message;
                 byte[] byData = System.Text.Encoding.ASCII.GetBytes(objData.ToString());
-                if (m_clientSocket != null)
+                if (socketTCP != null)
                 {
-                    m_clientSocket.Send(byData);
+                    socketTCP.Send(byData);
                 }
             }
             catch (SocketException se)
@@ -81,10 +81,10 @@ namespace SocketTest
                     m_pfnCallBack = new AsyncCallback(OnDataReceived);
                 }
                 SocketPacket theSocPkt = new SocketPacket();
-                theSocPkt.thisSocket = m_clientSocket;
+                theSocPkt.thisSocket = socketTCP;
                 // Start listening to the data asynchronously
-                if(m_clientSocket != null)
-                    m_result = m_clientSocket.BeginReceive(theSocPkt.dataBuffer,
+                if(socketTCP != null)
+                    m_result = socketTCP.BeginReceive(theSocPkt.dataBuffer,
                                                             0, theSocPkt.dataBuffer.Length,
                                                             SocketFlags.None,
                                                             m_pfnCallBack,
@@ -130,7 +130,7 @@ namespace SocketTest
 
         public bool Connected()
         {
-            return m_clientSocket.Connected;
+            return socketTCP.Connected;
         }
     }
 }

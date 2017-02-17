@@ -56,7 +56,8 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="SocketClient.cs" />
+    <Compile Include="ClientUDP.cs" />
+    <Compile Include="ClientTCP.cs" />
     <Compile Include="SocketPlayer.cs" />
     <Compile Include="SocketTest.cs" />
   </ItemGroup>
