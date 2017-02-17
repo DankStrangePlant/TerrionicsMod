@@ -2,16 +2,24 @@
 using System.Net;
 using System.Net.Sockets;
 using Terraria.ModLoader;
+using System.Runtime;
 
 namespace SocketTest
 {
-    class ClientUDP
+    class ClientUDP : IDisposable
     {
         byte[] m_dataBuffer = new byte[256];
         public Socket socketUDP;
         private IPEndPoint endPoint;
 
         private SocketTest socketMod;
+
+        private static String targetKey;
+
+        public static void SetTargetKey(String target)
+        {
+            targetKey = target;
+        }
 
         public ClientUDP(SocketTest mod)
         {
@@ -49,7 +57,19 @@ namespace SocketTest
             endPoint = new IPEndPoint(ip, port);
         }
 
-        public void SendMessage(String message)
+        public void SendMessage(Packet p)
+        {
+            dynamic d = p;
+            SendDynamic(d);
+        }
+
+        private void SendDynamic(dynamic p)
+        {
+            p.target = targetKey;
+            SendString(p.serialize());
+        }
+
+        private void SendString(String message)
         {
             try
             {
@@ -81,6 +101,11 @@ namespace SocketTest
             {
                 Console.WriteLine(se.Message);
             }
+        }
+
+        public void Dispose()
+        {
+            ((IDisposable)socketUDP).Dispose();
         }
     }
 }

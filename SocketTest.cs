@@ -9,11 +9,14 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Diagnostics;
+using System.Runtime;
 
 namespace SocketTest
 {
     class SocketTest : Mod
 	{
+        delegate void ExecuteDelegate(int interval, String route);
+
 		public String hostAddress = "127.0.0.1";
 		//public String hostAddress = "nerdtaco.com";
 		public int port = 3005;
@@ -24,6 +27,8 @@ namespace SocketTest
 
         private Stopwatch pingStopWatch = new Stopwatch();
 
+        public static Dictionary<String, Delegate> referenceDictionary;
+
         public SocketTest()
 		{
 			Properties = new ModProperties()
@@ -33,7 +38,6 @@ namespace SocketTest
                 AutoloadSounds = true,
                 AutoloadBackgrounds = true
             };
-
         }
 
         public override void Load()
@@ -44,7 +48,13 @@ namespace SocketTest
                 clientTCP.OpenConnection(hostAddress, port);
 
                 clientUDP = new ClientUDP(this);
-                clientUDP.OpenSocket(hostAddress, port);
+                clientUDP.OpenSocket(hostAddress, 5000);
+            }
+
+            if (referenceDictionary == null)
+            {
+                //referenceDictionary = new Dictionary<string, Delegate>();
+                //referenceDictionary.Add("Player.Position", (x, y) => {DelegateManager.SendPlayerPosition();});
             }
         }
 		
@@ -67,7 +77,9 @@ namespace SocketTest
 			{
 				try{
                     pingStopWatch.Restart();
-                    clientTCP.SendMessage("ping");
+                    dynamic p = new Packet();
+                    p.text = "ping";
+                    clientTCP.SendMessage(p);
                     display = false;
                 } catch (Exception e) {
 					Console.WriteLine(e.Message);

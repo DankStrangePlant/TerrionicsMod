@@ -14,8 +14,8 @@ using Terraria.GameInput;
 using Newtonsoft.Json;
 
 using System.Net;  
-using System.Net.Sockets;  
-using System.Threading; 
+using System.Net.Sockets;
+using System.Threading;
 
 namespace SocketTest
 {
@@ -52,8 +52,9 @@ namespace SocketTest
 			{
 				positionArray[0] = player.position.X;
 				positionArray[1] = player.position.Y;
-				String output = JsonConvert.SerializeObject(positionArray);
-                socketMod.clientUDP.SendMessage(output);
+                dynamic p = new Packet();
+                p.array = positionArray;
+                socketMod.clientTCP.SendMessage(p);
 			} catch (Exception e) {
 				count = (count+1)%1000;
 				if(count == 0)
