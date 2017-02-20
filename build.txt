@@ -1,4 +1,4 @@
-author = iamthemadz
+author = iamthemadz, Prismism
 version = 0.1
 displayName = SocketTest
 hideCode = false

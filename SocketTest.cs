@@ -2,14 +2,8 @@ using System;
 using Terraria;
 using Terraria.ModLoader;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
-using Newtonsoft.Json;
 
-using System.Net;
-using System.Net.Sockets;
-using System.Threading;
 using System.Diagnostics;
-using System.Runtime;
 
 namespace SocketTest
 {
@@ -77,8 +71,8 @@ namespace SocketTest
 			{
 				try{
                     pingStopWatch.Restart();
-                    dynamic p = new Packet();
-                    p.text = "ping";
+                    Packet p = new Packet();
+                    p["text"] = "ping";
                     clientTCP.SendMessage(p);
                     display = false;
                 } catch (Exception e) {

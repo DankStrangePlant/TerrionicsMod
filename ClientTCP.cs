@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
-using Terraria.ModLoader;
-using System.Runtime;
 
 namespace SocketTest
 {
@@ -58,13 +56,7 @@ namespace SocketTest
 
         public void SendMessage(Packet p)
         {
-            dynamic d = p;
-            SendDynamic(d);
-        }
-
-        private void SendDynamic(dynamic p)
-        {
-            SendString(p.serialize());
+            SendString(p.Serialize());
         }
 
         public void SendString(String message)
