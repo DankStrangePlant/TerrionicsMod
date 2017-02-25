@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 
-namespace SocketTest
+namespace TerrionicsMod
 {
     class ClientUDP : IDisposable
     {
@@ -10,7 +10,7 @@ namespace SocketTest
         public Socket socketUDP;
         private IPEndPoint endPoint;
 
-        private SocketTest socketMod;
+        private TerrionicsMod socketMod;
 
         private static String targetKey;
 
@@ -19,7 +19,7 @@ namespace SocketTest
             targetKey = target;
         }
 
-        public ClientUDP(SocketTest mod)
+        public ClientUDP(TerrionicsMod mod)
         {
             socketMod = mod;
         }

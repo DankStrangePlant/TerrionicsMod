@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace SocketTest
+namespace TerrionicsMod
 {
     class Packet : Dictionary<string, object>
     {
-        public Packet() {}
+        public Packet() { }
 
         public Packet(String JSON)
         {

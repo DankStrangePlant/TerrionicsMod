@@ -46,7 +46,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
@@ -63,12 +63,15 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ActionRequest.cs" />
+    <Compile Include="TerrionicsWorld.cs" />
+    <Compile Include="DataRequest.cs" />
     <Compile Include="Packet.cs" />
-    <Compile Include="DelegateManager.cs" />
+    <Compile Include="RequestTimer.cs" />
     <Compile Include="ClientUDP.cs" />
     <Compile Include="ClientTCP.cs" />
-    <Compile Include="SocketPlayer.cs" />
-    <Compile Include="SocketTest.cs" />
+    <Compile Include="TerrionicsPlayer.cs" />
+    <Compile Include="TerrionicsMod.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp">
@@ -112,7 +115,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

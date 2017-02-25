@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 
-namespace SocketTest
+namespace TerrionicsMod
 {
     class ClientTCP
     {
@@ -11,9 +11,9 @@ namespace SocketTest
         public AsyncCallback m_pfnCallBack;
         public Socket socketTCP;
         
-        private SocketTest socketMod;
+        private TerrionicsMod socketMod;
 
-        public ClientTCP(SocketTest mod)
+        public ClientTCP(TerrionicsMod mod)
         {
             socketMod = mod;
         }
